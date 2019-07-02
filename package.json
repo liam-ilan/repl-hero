@@ -1,0 +1,37 @@
+{
+  "name": "repl-hero",
+  "version": "0.0.1",
+  "description": "An entry to the REPL.it online music hackathon.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npx eslint ./src",
+    "build": "npx webpack --config webpack.config.js",
+    "watch": "webpack --watch",
+    "start": "webpack-dev-server --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liam-ilan/repl-hero.git"
+  },
+  "keywords": [
+    "music",
+    "guitar",
+    "hero",
+    "repl",
+    "hackathon"
+  ],
+  "author": "Liam Ilan, Ron Ilan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/liam-ilan/repl-hero/issues"
+  },
+  "homepage": "https://github.com/liam-ilan/repl-hero#readme",
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.18.0",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5"
+  }
+}
