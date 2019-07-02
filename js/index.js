@@ -86,14 +86,39 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/generator.js":
+/*!**************************!*\
+  !*** ./src/generator.js ***!
+  \**************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return generate; });\n// possible bars\nconst bars = [\n  {\n    id: 1,\n    content: [\n      [1],\n      [2],\n      [3],\n      [2],\n    ],\n    next: [2, 1, 3, 5, 7],\n  },\n  {\n    id: 2,\n    content: [\n      [2],\n      [3],\n      [],\n      [4, 2],\n    ],\n    next: [3, 9],\n  },\n  {\n    id: 3,\n    content: [\n      [2],\n      [1],\n      [],\n      [1, 5],\n    ],\n    next: [1, 2, 3, 4, 5, 6, 7, 8, 9],\n  },\n  {\n    id: 4,\n    content: [\n      [5],\n      [3],\n      [4],\n      [2],\n    ],\n    next: [6, 7, 4, 8],\n  },\n  {\n    id: 5,\n    content: [\n      [2],\n      [1],\n      [3],\n      [1],\n    ],\n    next: [4, 7],\n  },\n  {\n    id: 6,\n    content: [\n      [1],\n      [2],\n      [3, 1],\n      [],\n    ],\n    next: [7],\n  },\n  {\n    id: 7,\n    content: [\n      [3],\n      [3],\n      [1],\n      [],\n    ],\n    next: [6, 8],\n  },\n  {\n    id: 8,\n    content: [\n      [2],\n      [2],\n      [2, 4],\n      [2],\n    ],\n    next: [8, 5, 9],\n  },\n  {\n    id: 9,\n    content: [\n      [3],\n      [3],\n      [1],\n      [1],\n    ],\n    next: [8, 5, 7, 1],\n  },\n];\n\nfunction generate(bar = 'default') {\n  // return random bar for initilization\n  if (bar === 'default') {\n    return bars[Math.floor(Math.random() * bars.length)];\n  }\n\n  // find id of next bar\n  // randomly picked\n  const nextId = bar.next[Math.floor(Math.random() * bar.next.length)];\n\n  // init result\n  let result = {};\n\n  // find and return bar\n  bars.forEach((item) => {\n    if (item.id === nextId) {\n      result = item;\n    }\n  });\n  return result;\n}\n\n\n//# sourceURL=webpack:///./src/generator.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-eval("console.log(\"REPL Hero!!\")\n\n//# sourceURL=webpack:///./src/index.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _player__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./player */ \"./src/player.js\");\n\n\nObject(_player__WEBPACK_IMPORTED_MODULE_0__[\"default\"])();\n\n\n//# sourceURL=webpack:///./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/player.js":
+/*!***********************!*\
+  !*** ./src/player.js ***!
+  \***********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return player; });\n/* harmony import */ var _generator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./generator */ \"./src/generator.js\");\n/* global Synth */\n\n\n// piano, edm, acoustic, organ\nconst instrument = Synth.createInstrument('piano');\n\n// play single note\nfunction playNote(num, pitch) {\n  const notes = ['C', 'D', 'F', 'G', 'A'];\n  instrument.play(notes[num - 1], pitch, 2);\n}\n\n// plays multiple notes\nfunction playChord(chord, pitch) {\n  chord.forEach((item) => { playNote(item, pitch); });\n}\n\n// test generate\nfunction player(beatLength = 500) {\n  // initilize to random bar\n  let currentBar = Object(_generator__WEBPACK_IMPORTED_MODULE_0__[\"default\"])();\n\n  // between 0 to 3\n  let beatNum = 0;\n\n  // init pitch (random)\n  let pitch = Math.floor((Math.random() * 3) + 3);\n\n  // loop on every beat\n  window.setInterval(() => {\n    // play chord\n    playChord(currentBar.content[beatNum], pitch);\n\n    // generate new bar once bar\n    if (beatNum === 3) {\n      currentBar = Object(_generator__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(currentBar);\n      pitch = Math.floor((Math.random() * 3) + 3);\n      beatNum = 0;\n    } else {\n      beatNum += 1;\n    }\n  }, beatLength);\n}\n\n\n//# sourceURL=webpack:///./src/player.js?");
 
 /***/ })
 
