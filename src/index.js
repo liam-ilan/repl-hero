@@ -1,1 +1,3 @@
-console.log("REPL Hero!!")
+import player from './player';
+
+player();
