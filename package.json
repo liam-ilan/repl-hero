@@ -5,9 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "npx eslint ./src",
-    "build": "npx webpack --config webpack.config.js",
-    "watch": "webpack --watch",
+    "lint": "npx eslint ./src --fix",
+    "build": "npm run lint && webpack --config webpack.config.js --mode=production",
     "start": "webpack-dev-server --open"
   },
   "repository": {
@@ -21,7 +20,10 @@
     "repl",
     "hackathon"
   ],
-  "author": "Liam Ilan, Ron Ilan",
+  "contributors": [
+    { "name": "Liam Ilan", "url": "https://github.com/liam-ilan"},
+    { "name" : "Ron Ilan", "url": "https://www.ronilan.com"}
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/liam-ilan/repl-hero/issues"
