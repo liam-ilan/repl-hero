@@ -1,4 +1,3 @@
-
 import generate from './generator';
 import playChord from './player';
 
@@ -45,6 +44,7 @@ function loop(beatLength = 1000) {
       s.y += 1;
       return s;
     }).filter(sprite => sprite.y < stageHeight);
+
   }, beatLength);
 }
 
