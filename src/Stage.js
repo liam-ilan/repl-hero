@@ -21,12 +21,12 @@ export default class Stage {
       sprite.costume.forEach((spriteRow, spriteRowIndex) => {
         if (
           sprite.y + spriteRowIndex < this.screen.length
-          || sprite.y + spriteRowIndex >= 0
+          && sprite.y + spriteRowIndex >= 0
         ) {
           spriteRow.forEach((item, itemIndex) => {
             if (
               sprite.x + itemIndex < this.screen[0].length
-              || sprite.x + itemIndex >= 0
+              && sprite.x + itemIndex >= 0
             ) {
               this.screen[sprite.y + spriteRowIndex][sprite.x + itemIndex] = item;
             }
