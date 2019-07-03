@@ -13,6 +13,7 @@ export default class Stage {
     this.target.innerHTML = '';
   }
 
+  // TODO: catch error if not valid costume, and others
   render() {
     this.clearScreen();
 
