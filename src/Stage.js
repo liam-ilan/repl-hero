@@ -1,5 +1,6 @@
 export default class Stage {
-  constructor(width = 64, height = 48) {
+  constructor(width = 64, height = 48, target) {
+    this.target = target;
     this.screen = this.clearScreen();
     this.sprites = [];
     this.width = width;
@@ -9,6 +10,7 @@ export default class Stage {
   clearScreen() {
     this.screen = new Array(this.height).fill(null).map(() => new Array(this.width).fill(0));
     console.clear(); // temp
+    this.target.innerHTML = '';
   }
 
   render() {
@@ -32,6 +34,14 @@ export default class Stage {
         }
       });
     });
+
+    this.target.innerHTML = this.screen.reduce(
+      (out, line) => (
+        `${out + line.map(item => `<span class="color${item}">█</span>`).join('')
+        }\n`
+      ),
+      '\n',
+    );
 
     console.log(this.screen.reduce((out, line) => (`${out + line.join('')}\n`), '\n'));
   }

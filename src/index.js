@@ -6,7 +6,7 @@ import Sprite from './Sprite';
 
 const stageHeight = 8;
 const stageWidth = 5;
-const stage = new Stage(stageWidth, stageHeight);
+const stage = new Stage(stageWidth, stageHeight, document.getElementById('terminal'));
 
 function loop(beatLength = 1000) {
   // initilize to random bar
@@ -44,7 +44,6 @@ function loop(beatLength = 1000) {
       s.y += 1;
       return s;
     }).filter(sprite => sprite.y < stageHeight);
-
   }, beatLength);
 }
 

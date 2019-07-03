@@ -1,0 +1,85 @@
+html, body, pre{
+  margin: 0;
+  padding: 0;
+}
+
+#terminal-wrapper{
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding: 10px 20px;
+
+  font-family: monospace;
+  color: white;
+
+  font-size: 14px;
+  line-height: 14px;
+
+  background-color: #111;
+}
+
+.color0{
+  color: #111;
+}
+
+.color1{
+  color: #FFFF00;
+}
+
+.color2{
+  color: #FF6500;
+}
+
+.color3{
+  color: #DE0000;
+}
+
+.color4{
+  color: #FF0198;
+}
+
+.color5{
+  color: #350099
+}
+
+.color6{
+  color: #0000CC;
+}
+
+.color7{
+  color: #009AFE;
+}
+
+.color8{
+  color: #00AA00;
+}
+
+.color9{
+  color: #006600;
+}
+
+.color10{
+  color: #663200;
+}
+
+.color11{
+  color: #996533;
+}
+
+.color12{
+  color: #BBBBBB;
+}
+
+.color13{
+  color: #888888;
+}
+
+.color14{
+  color: #444444;
+}
+
+.color15{
+  color: #ffffff;
+}
