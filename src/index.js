@@ -4,13 +4,17 @@ import playNote from './player';
 import Stage from './Stage';
 import Sprite from './Sprite';
 
-const stageHeight = 8;
+const stageHeight = 10;
 const stageWidth = 5;
 const stage = new Stage(stageWidth, stageHeight, document.getElementById('terminal'));
 
-// indicator
-const line = new Sprite(0, stage.height - 1, [[8, 8, 8, 8, 8]]);
-stage.sprites.push(line);
+// indicator at bottom of screen
+const indicator = new Sprite(0, stage.height - 2, [[8, 8, 8, 8, 8]]);
+stage.sprites.push(indicator);
+
+// live counter
+const lives = new Sprite(0, stage.height - 1, [['o', 'o', 'o', 'o', 'o']]);
+stage.sprites.push(lives);
 
 // the chord the user will be asked to play
 // empty = good
@@ -37,7 +41,7 @@ function loop(beatLength = 700) {
   let currentBar = generate();
 
   let beatNum = 0; // between 0 to 3
-  const notes = []; // array of note sprites
+  let notes = []; // array of note sprites
 
   // loop on every beat
   window.setInterval(() => {
@@ -62,24 +66,27 @@ function loop(beatLength = 700) {
     });
 
     // reconstruct the chords the user will need to play
-    chordToPlay = notes.filter(item => (item.y === stage.height - 1)).map(item => item.x);
+    chordToPlay = notes.filter(item => (item.y === stage.height - 2)).map(item => item.x);
 
     // visualize
     currentChord.forEach((note) => {
-      const sprite = new Sprite(note - 1, 0, [[note]]);
+      const sprite = new Sprite(note - 1, 1, [[note]]);
       stage.sprites.push(sprite);
       notes.push(sprite);
     });
+
+    // filter out sprites
+    // (i === 0) || (i === 1) to exclude lives and indicator from being deleted
+    stage.sprites = stage.sprites.filter(
+      (sprite, i) => (sprite.y < stageHeight - 1) || ((i > -1) && (i < 2)),
+    );
+    notes = notes.filter(sprite => sprite.y < stageHeight - 1);
 
     // render
     stage.render();
 
     // temporary: tells the user if the chord they played was good or bad
     document.getElementById('terminal').innerHTML += `\n${succeded ? 'good' : 'bad'}`;
-
-    // filter out sprit
-    stage.sprites.filter(sprite => sprite.y < stageHeight);
-    notes.filter(sprite => sprite.y < stageHeight);
   }, beatLength);
 }
 
