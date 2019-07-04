@@ -38,7 +38,14 @@ export default class Stage {
 
     this.target.innerHTML = this.screen.reduce(
       (out, line) => (
-        `${out + line.map(item => `<span class="color${item}">█</span>`).join('')
+        `${out + line.map(
+          (item) => {
+            if (Number.isNaN(parseInt(item, 10))) {
+              return item;
+            }
+            return `<span class="color${item}">█</span>`;
+          },
+        ).join('')
         }\n`
       ),
       '\n',
