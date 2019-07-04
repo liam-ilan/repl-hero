@@ -13,8 +13,8 @@ const indicator = new Sprite(0, stage.height - 2, [[8, 8, 8, 8, 8]]);
 stage.sprites.push(indicator);
 
 // live counter
-const lives = new Sprite(0, stage.height - 1, [['o', 'o', 'o', 'o', 'o']]);
-stage.sprites.push(lives);
+const liveCounter = new Sprite(0, stage.height - 1, [['o', 'o', 'o', 'o', 'o']]);
+stage.sprites.push(liveCounter);
 
 // the chord the user will be asked to play
 // empty = good
@@ -43,9 +43,13 @@ function loop(beatLength = 700) {
   let beatNum = 0; // between 0 to 3
   let notes = []; // array of note sprites
 
+  let lives = 5;
   // loop on every beat
   window.setInterval(() => {
     const succeded = chordToPlay.length === 0;
+    if (succeded === false) { lives -= 1; }
+
+    liveCounter.costume[0] = liveCounter.costume[0].map((item, i) => (i < lives ? 'o' : 'x'));
 
     // a chord may contain up to five notes. commonly there are none, one or two.
     const currentChord = currentBar.content[beatNum];
@@ -76,7 +80,7 @@ function loop(beatLength = 700) {
     });
 
     // filter out sprites
-    // (i === 0) || (i === 1) to exclude lives and indicator from being deleted
+    // (i === 0) || (i === 1) to exclude liveCounter and indicator from being deleted
     stage.sprites = stage.sprites.filter(
       (sprite, i) => (sprite.y < stageHeight - 1) || ((i > -1) && (i < 2)),
     );
@@ -84,9 +88,6 @@ function loop(beatLength = 700) {
 
     // render
     stage.render();
-
-    // temporary: tells the user if the chord they played was good or bad
-    document.getElementById('terminal').innerHTML += `\n${succeded ? 'good' : 'bad'}`;
   }, beatLength);
 }
 
