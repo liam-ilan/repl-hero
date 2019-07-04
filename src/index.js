@@ -30,6 +30,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 function gameLoop(beatLength = 700) {
+  /* init */
   // initilize to random bar
   let currentBar = generate();
 
@@ -37,8 +38,10 @@ function gameLoop(beatLength = 700) {
   let notes = []; // array of note sprites
 
   stage.sprites = [];
+  chordToPlay = [];
 
   let lives = 5;
+  let score = 0;
 
   // indicator at bottom of screen
   const indicator = new Sprite(0, stage.height - 2, [[8, 8, 8, 8, 8]]);
@@ -48,15 +51,22 @@ function gameLoop(beatLength = 700) {
   const liveCounter = new Sprite(0, stage.height - 1, [['o', 'o', 'o', 'o', 'o']]);
   stage.sprites.push(liveCounter);
 
+  // scoreCounter
+  const scoreCounter = new Sprite(0, 0, [['0', '0', '0', '0', '0']]);
+  stage.sprites.push(scoreCounter);
+
   // loop on every beat
   const interval = window.setInterval(() => {
     // record if the last beat was succesfull
     const succeded = chordToPlay.length === 0;
 
-    if (succeded === false) { lives -= 1; }
+    if (succeded === false) { lives -= 1; } else { score += 1; }
 
     // render lives
     liveCounter.costume[0] = liveCounter.costume[0].map((item, i) => (i < lives ? 'o' : 'x'));
+
+    // render score
+    scoreCounter.costume[0] = score.toString(10).padStart(5, '0').split('');
 
     // a chord may contain up to five notes. commonly there are none, one or two.
     const currentChord = currentBar.content[beatNum];

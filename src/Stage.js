@@ -40,7 +40,7 @@ export default class Stage {
       (out, line) => (
         `${out + line.map(
           (item) => {
-            if (Number.isNaN(parseInt(item, 10))) {
+            if (typeof item !== 'number') {
               return item;
             }
             return `<span class="color${item}">█</span>`;
