@@ -29,6 +29,36 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+function showTitle() {
+  stage.sprites = [];
+
+  const titleCostume = new Array(stageHeight).fill(0).map(() => new Array(stageWidth).fill(0));
+  titleCostume[4] = ['R', 'E', 'P', 'L', 0];
+  titleCostume[5] = [0, 'H', 'E', 'R', 'O'];
+
+  const title = new Sprite(0, 0, titleCostume);
+
+  stage.sprites.push(title);
+
+  stage.render();
+}
+
+function gameOver(score) {
+  stage.sprites = [];
+
+  const endScreenCostume = new Array(stageHeight).fill(0).map(() => new Array(stageWidth).fill(0));
+  endScreenCostume[0] = 'GAME '.split('');
+  endScreenCostume[1] = ' OVER'.split('');
+  endScreenCostume[4] = 'SCORE'.split('');
+  endScreenCostume[5] = score.toString(10).padStart(5, '0').split('');
+
+  const endScreen = new Sprite(0, 0, endScreenCostume);
+
+  stage.sprites.push(endScreen);
+
+  stage.render();
+}
+
 function gameLoop(beatLength = 700) {
   /* init */
   // initilize to random bar
@@ -44,7 +74,7 @@ function gameLoop(beatLength = 700) {
   let score = 0;
 
   // indicator at bottom of screen
-  const indicator = new Sprite(0, stage.height - 2, [[8, 8, 8, 8, 8]]);
+  const indicator = new Sprite(0, stage.height - 2, [[7, 7, 7, 7, 7]]);
   stage.sprites.push(indicator);
 
   // live counter
@@ -106,9 +136,18 @@ function gameLoop(beatLength = 700) {
     // if we died
     if (lives === 0) {
       clearInterval(interval);
-      gameLoop();
+      gameOver(score);
+      setTimeout(() => {
+        showTitle();
+        setTimeout(gameLoop, 2000);
+      }, 2000);
     }
   }, beatLength);
 }
 
-gameLoop();
+function start() {
+  showTitle();
+  setTimeout(gameLoop, 2000);
+}
+
+start();
