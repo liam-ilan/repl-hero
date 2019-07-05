@@ -92,16 +92,14 @@ function gameLoop(beatLength = 700) {
     // visualize
     currentChord.forEach((note) => {
       const sprite = new Sprite(note - 1, 1, [[note]]);
+      sprite.type = 'note';
       stage.sprites.push(sprite);
       notes.push(sprite);
     });
 
-    // filter out sprites
-    // ((i > -1) && (i < 2)) to exclude liveCounter and indicator from being deleted
-    stage.sprites = stage.sprites.filter(
-      (sprite, i) => (sprite.y < stageHeight - 1) || ((i > -1) && (i < 2)),
-    );
-    notes = notes.filter(sprite => sprite.y < stageHeight - 1);
+    // filter out note sprites that fell out of screen
+    stage.sprites = stage.sprites.filter(sprite => !(sprite.type === 'note' && sprite.y > stageHeight - 2));
+    notes = stage.sprites.filter(sprite => sprite.type === 'note');
 
     stage.render();
 
