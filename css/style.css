@@ -3,6 +3,11 @@ html, body, pre{
   padding: 0;
 }
 
+#terminal{
+  text-align: center;
+  letter-spacing: 5px;
+}
+
 #terminal-wrapper{
   position: fixed;
   top: 0;
@@ -14,8 +19,8 @@ html, body, pre{
   font-family: monospace;
   color: white;
 
-  font-size: 14px;
-  line-height: 14px;
+  font-size: 48px;
+  line-height: 48px;
 
   background-color: #111;
 }
